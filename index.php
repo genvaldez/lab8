@@ -19,6 +19,36 @@
         <script>
             $(document).ready(function(){
                 
+                $("#username").change(function() {
+                    
+                    //alert($("#username").val() );
+                    
+                    $.ajax({
+
+                    type: "GET",
+                    url: "checkUsername.php",
+                    dataType: "json",
+                    data: { "username": $("#username").val()},
+                    success: function(data,status) {
+                        //alert(data.password);
+                        
+                        if(!data){
+                            //$("#username").html(data.username);
+                            alert("Username is AVAILABLE!");
+                        }else{
+                            alert("Username ALREADT TAKEN!");
+                        }
+                    
+                    },
+                    complete: function(data,status) { //optional, used for debugging purposes
+                    //alert(status);
+                    }
+                    
+                    });//ajax
+                    
+                });
+                
+                
                 $("#state").change(function(){
                     //alert($("#state").val() );
                     $.ajax({
@@ -105,7 +135,7 @@
                 
                 Select a County: <select id="county"></select><br>
                 
-                Desired Username: <input type="text"><br>
+                Desired Username: <input type="text" id="username"><br>
                 
                 Password: <input type="password"><br>
                 
